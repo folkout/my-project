@@ -1,0 +1,343 @@
+/* 投稿アイコンボタン */
+.add-post-btn {
+  background-color: #007bff; /* ボタンの背景色 */
+  color: #fff; /* アイコンの色を白に */
+  border: none; /* ボーダーを削除 */
+  border-radius: 50%; /* 丸型にする */
+  cursor: pointer;
+  font-size: 24px; /* アイコンのサイズを少し小さく */
+  width: 50px; /* ボタンの幅を調整 */
+  height: 50px; /* ボタンの高さを調整 */
+  position: fixed;
+  bottom: 80px; /* ヘッダーと被らないよう上に調整 */
+  right: 20px; /* 右からの距離 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 影を調整 */
+  transition: background-color 0.3s, transform 0.2s;
+  z-index: 1000; /* 他の要素より前面に表示 */
+}
+
+.add-post-btn:hover {
+  background-color: #0056b3; /* ホバー時の背景色を変更 */
+  transform: scale(1.1); /* ホバー時に少し拡大 */
+}
+
+.add-post-btn:focus {
+  outline: none; /* フォーカス時のアウトラインを削除 */
+}
+
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007bff;
+  font-size: 18px; /* フォントサイズを小さく */
+  padding: 10px; /* パディングを調整 */
+  transition: color 0.3s, transform 0.2s;
+}
+
+.action-btn:hover {
+  color: #0056b3;
+  transform: scale(1.1); /* 少し控えめなホバー効果 */
+}
+
+
+/* 個々のボタン */
+button {
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+  padding: 10px 20px;
+}
+
+button.cancel {
+  background-color: #dc3545;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button + button {
+  margin-left: 10px;
+}
+
+/* コメント */
+.comment {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.comment p {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* コメントフォーム */
+.comment-form {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.comment-form input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 8px;
+  width: 100%;
+}
+
+/* コメントヘッダー */
+.comment-header {
+  align-items: center;
+  display: flex;
+  margin-top: 5px;
+}
+
+.comment-header p {
+  margin: 0;
+}
+
+/* コメント全体 */
+.comments {
+  border-left: 2px solid #ddd;
+  margin-top: 10px;
+  padding-left: 15px;
+}
+
+/* エラー通知 */
+.error {
+  background-color: #f44336;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 1000;
+}
+
+/* 投稿フォームのポップアップ */
+.post-form-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px; /* ここで左右に余白を追加 */
+  box-sizing: border-box; /* 余白を計算に含める */
+}
+
+/* 投稿フォームのコンテナ */
+.post-form-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%; /* 幅を100%に設定 */
+  max-width: 600px; /* 最大幅を600pxに設定 */
+  box-sizing: border-box; /* paddingとborderを幅に含める */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 90%; /* 高さを90%に制限 */
+  overflow-y: auto; /* 内容が長くなった場合にスクロール可能に */
+}
+
+
+/* 投稿フォームボタン */
+.post-form-buttons {
+  align-items: center;
+  display: flex;
+  gap: 10px; /* ボタン間の隙間 */
+  justify-content: flex-end; /* ボタンを右端に配置 */
+}
+
+/* 投稿カード */
+.post {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  padding: 10px; /* 縦の余白を減らす */
+  position: relative;
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.post:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 投稿カード内ヘッダー */
+.post-header {
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+/* 投稿者アイコン */
+.author-icon {
+  border-radius: 50%;
+  height: 40px;
+  margin-right: 8px;
+  width: 40px;
+}
+
+/* 投稿者ニックネーム */
+.author-nickname {
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* コメントのコンテナ */
+.comments-comment {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* コメント投稿者アイコン */
+.comment-author-icon {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin-right: 12px;
+}
+
+/* コメント内容 */
+.comments-content {
+  flex: 1;
+  margin-right: 10px; /* ゴミ箱アイコンとのスペースを追加 */
+  position: relative; /* 投稿文の微調整に必要 */
+}
+
+/* コメント投稿者のニックネーム */
+.comment-author-nickname {
+  color: #555;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 2px; /* コメントとの間隔を縮める */
+}
+
+/* コメントのテキスト */
+.comment-text {
+  color: #333;
+  font-size: 14px;
+  margin: 0; /* デフォルトの余白を削除 */
+  top: 10px; /* 下に少しずらす */
+  left: 5px; /* 右に少しずらす */
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  word-wrap: break-word; /* 長い単語を折り返し */
+  line-height: 1.5; /* 行間を広げる */
+}
+
+/* 投稿内容 */
+.post-content {
+  font-family: 'Roboto', sans-serif; /* または好きな候補 */
+  font-size: 16px; /* サイズは通常16pxが読みやすい */
+  padding: 20px; /* 左右に余白を追加 */
+  margin: 5px 0; /* 縦のスペースを縮小 */
+  line-height: 1.2; /* 行間を縮小 */
+}
+
+/* アクションボタン */
+.post-actions {
+  align-items: center;
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* タイムライン */
+.timeline {
+  display: flex;
+  flex-direction: column; /* 通常の順序に戻す */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  max-width: 800px;
+  padding: 0 20px; /* 横の余白を追加 */
+}
+
+/* 通知 */
+.notification {
+  background-color: #4caf50;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: white;
+  left: 50%;
+  padding: 10px;
+  position: fixed;
+  top: 20px;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .action-btn {
+    font-size: 16px;
+  }
+
+  .comment-form input {
+    font-size: 12px;
+  }
+
+  .post-actions {
+    justify-content: space-between;
+  }
+}
+
+/* テキストエリア */
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 20;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  resize: none; /* ユーザーがサイズを変更できないように */
+}
+
+.mail-icon {
+  position: absolute;
+  top: 10px; /* 投稿者アイコンに合わせた位置調整 */
+  left: 60px; /* 投稿者アイコンの右側に配置 */
+  background-color: white;
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 1000;
+}

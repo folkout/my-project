@@ -1,0 +1,223 @@
+.error-message {
+  color: red;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+/* Vote.css */
+.loading-message {
+  color: blue;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+/* 投票フォーム全体の位置調整 */
+.vote-container {
+  margin-top: 20px; /* 上部から適度に下げる */
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 代表者投票セクション */
+.representative-voting {
+  margin-bottom: 50px; /* 投票セクションとの間の余白 */
+  padding: 20px; /* セクション内の余白 */
+  border-radius: 8px; /* 角を丸める */
+  background-color: #fff; /* 背景色 */
+}
+
+/* 投票セクション */
+.vote-section {
+  margin-top: 30px; /* 代表者投票との間の余白 */
+  padding: 20px; /* セクション内の余白 */
+  border-radius: 8px; /* 角を丸める */
+  background-color: #fff; /* 背景色 */
+}
+
+.representative-voting h2 {
+  font-size: 20px;
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* 横スクロール対応 */
+.user-scroll-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto; /* 横スクロールを有効化 */
+  white-space: nowrap; /* 要素が折り返されないようにする */
+}
+
+.user-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 120px; /* 固定幅 */
+  flex-shrink: 0; /* 幅が縮まないようにする */
+}
+
+.user-name {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.user-item button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user-item button:hover {
+  background-color: #0056b3;
+}
+
+.current-representative {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #28a745;
+  margin-top: 15px;
+}
+
+/* 投票セクション */
+.vote-section h2 {
+  font-size: 20px;
+  color: #dc3545;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.vote-create {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.vote-select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.vote-input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.create-btn {
+  align-self: flex-start;
+  padding: 8px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create-btn:hover {
+  background-color: #218838;
+}
+
+.vote-list {
+  list-style: none;
+  padding: 0;
+}
+
+.vote-item {
+  background-color: #ffffff;
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.vote-reason {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.vote-btn {
+  margin-right: 10px;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.vote-btn:hover {
+  background-color: #0056b3;
+}
+
+/* 締切日時表示 */
+.vote-deadline {
+  font-size: 14px;
+  color: #6c757d;
+  margin-top: 10px;
+}
+
+.comments-section {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.comments-section h4 {
+  font-size: 16px;
+  color: #6c757d;
+  margin-bottom: 10px;
+}
+
+.comments-list {
+  list-style: none;
+  padding: 0;
+}
+
+.comment-item {
+  background-color: #f4f4f4;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 4px;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.comment-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
