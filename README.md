@@ -15,8 +15,8 @@
 ---
 
 ## 使用技術
-- Frontend: Next.js / React / Tailwind CSS  
-- Backend: Node.js / Express  
+- Frontend: React
+- Backend: Node.js 
 - Database: SQL  
 - Deployment: ConoHa VPS
 
