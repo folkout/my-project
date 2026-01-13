@@ -3,26 +3,26 @@ import axios from 'axios';
 import './History.css';
 
 const History = () => {
-  const [events, setEvents] = useState([]); // 初期状態として空の配列を設定
+  const [events, setEvents] = useState([]); 
 
   const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     axios
-        .get(`${API_URL}/api/histories/vote-actions`, { withCredentials: true }) // groupIdは送信しない
+        .get(`${API_URL}/api/histories/vote-actions`, { withCredentials: true }) 
         .then((response) => {
-            // レスポンスが配列形式であることを確認して初期化
+            
             if (Array.isArray(response.data)) {
-                setEvents(response.data); // 正常なデータを設定
+                setEvents(response.data); 
             } else {
-                setEvents([]); // 不正な形式の場合は空配列に初期化
+                setEvents([]); 
             }
         })
         .catch((error) => {
             console.error('Error fetching vote actions:', error);
-            setEvents([]); // エラーが発生した場合も空配列に初期化
+            setEvents([]); 
         });
-}, []); // 初回のみ実行
+}, []); 
 
   return (
     <div className="history-container">

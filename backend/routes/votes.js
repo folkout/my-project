@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // DB接続
-const moment = require('moment'); // moment.jsをインポート
-const { v4: uuidv4 } = require('uuid'); // UUID生成ライブラリをインポート
-const jwt = require('jsonwebtoken'); // トークン検証用
+const db = require('../db'); 
+const moment = require('moment'); 
+const { v4: uuidv4 } = require('uuid'); 
+const jwt = require('jsonwebtoken'); 
 const schedule = require('node-schedule');
 const fs = require('fs');
 const path = require('path');
 
-// 代表者情報と投票状況を取得する統合エンドポイント
+
 router.get('/representative-overview', async (req, res) => {
     try {
-        // Cookieからトークンとgroup_idを取得
+        
         const token = req.cookies.access_token;
         const groupId = req.cookies.group_id;
 
@@ -23,11 +23,11 @@ router.get('/representative-overview', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Invalid or missing group ID' });
         }
 
-        // トークンを検証
+        
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.user_id;
 
-        // グループ内の全ユーザーと投票数を取得
+        
         const [users] = await db.query(`
             SELECT 
                 u.id AS user_id,
@@ -41,7 +41,7 @@ router.get('/representative-overview', async (req, res) => {
             GROUP BY u.id;
         `, [groupId]);
 
-        // グループ内の代表者情報を取得
+        
         const [representativeResults] = await db.query(`
             SELECT 
                 rv.candidate_id AS representative_id,
@@ -55,7 +55,7 @@ router.get('/representative-overview', async (req, res) => {
             ORDER BY votes DESC;
         `, [groupId]);
 
-        // 代表者を判定
+        
         let representative = null;
         if (representativeResults.length > 0) {
             const topVoteCount = representativeResults[0].votes;
@@ -71,7 +71,7 @@ router.get('/representative-overview', async (req, res) => {
             }
         }
 
-        // 現在のユーザーが代表者かどうかを判定
+        
         const isRepresentative = representative
             ? parseInt(representative.id, 10) === parseInt(userId, 10)
             : false;
@@ -83,10 +83,10 @@ router.get('/representative-overview', async (req, res) => {
     }
 });
 
-// 代表者投票
+
 router.post('/representative', async (req, res) => {
     try {
-        // Cookieからトークンとgroup_idを取得
+        
         const token = req.cookies.access_token;
         const groupId = req.cookies.group_id;
 
@@ -94,7 +94,7 @@ router.post('/representative', async (req, res) => {
             return res.status(401).json({ success: false, message: 'Unauthorized: Token or Group ID missing' });
         }
 
-        // トークンを検証
+        
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const voterId = decoded.user_id;
 
@@ -139,22 +139,22 @@ router.post('/representative', async (req, res) => {
     }
 });
 
-// 特別投票用エンドポイント
+
 router.get('/vote-actions', async (req, res) => {
     try {
-        // Cookieからトークンを取得
+        
         const token = req.cookies.access_token;
         if (!token) {
             return res.status(401).json({ message: 'Unauthorized: Token missing' });
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const groupId = req.cookies.group_id; // Cookieからgroup_idを取得
+        const groupId = req.cookies.group_id; 
         if (!groupId) {
             return res.status(400).json({ message: 'Group ID is missing in cookies.' });
         }
 
-        // データの取得
+        
         const [votes] = await db.query(`
             SELECT 
                 id, type, action, reason, resolved, deadline, user_id, target_user_id, group_id
@@ -183,7 +183,7 @@ router.get('/vote-actions', async (req, res) => {
     }
 });
 
-// 投票を作成
+
 router.post('/vote-actions', async (req, res) => {
     try {
         const token = req.cookies.access_token;
@@ -193,7 +193,7 @@ router.post('/vote-actions', async (req, res) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.user_id;
-        const groupId = req.cookies.group_id; // Cookieからgroup_idを取得
+        const groupId = req.cookies.group_id; 
 
         if (!groupId) {
             return res.status(400).json({ message: 'Group ID is missing in cookies.' });
@@ -208,12 +208,12 @@ router.post('/vote-actions', async (req, res) => {
         await connection.beginTransaction();
 
         try {
-            const voteId = require('uuid').v4(); // UUIDを生成
+            const voteId = require('uuid').v4(); 
             const formattedDeadline = deadline
             ? moment(deadline).format('YYYY-MM-DD HH:mm:ss')
-            : moment().add(3, 'days').format('YYYY-MM-DD HH:mm:ss'); // 期限を3日後に設定
+            : moment().add(3, 'days').format('YYYY-MM-DD HH:mm:ss'); 
 
-            // 投票をデータベースに登録
+            
             await connection.query(
                 `INSERT INTO vote_actions 
                 (id, type, action, reason, deadline, resolved, user_id, group_id, target_user_id) 
@@ -239,7 +239,7 @@ router.post('/vote-actions', async (req, res) => {
     }
 });
 
-// 投票の賛成・反対を更新
+
 router.post('/vote-actions/:id', async (req, res) => {
     const { id } = req.params;
     const { type, groupId } = req.body;
@@ -249,7 +249,7 @@ router.post('/vote-actions/:id', async (req, res) => {
     }
 
     try {
-        // トークンの検証
+        
         const token = req.cookies.access_token;
         if (!token) {
             return res.status(401).json({ message: 'Unauthorized: Token missing' });
@@ -293,7 +293,7 @@ router.post('/vote-actions/:id', async (req, res) => {
     }
 });
 
-// コメント一覧の取得
+
 router.get('/:id/comments', async (req, res) => {
     const { id } = req.params;
     try {
@@ -308,17 +308,17 @@ router.get('/:id/comments', async (req, res) => {
     }
 });
 
-// コメントの追加
+
 router.post('/:id/comments', async (req, res) => {
     try {
-        // Cookieからトークンを取得
+        
         const token = req.cookies.access_token;
         if (!token) {
             console.warn('トークンがCookieにありません');
             return res.status(401).json({ success: false, message: 'Unauthorized' });
         }
 
-        // トークンを検証
+        
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.user_id;
 
@@ -329,7 +329,7 @@ router.post('/:id/comments', async (req, res) => {
             return res.status(400).json({ message: 'Missing required fields.' });
         }
 
-        // コメントを追加
+        
         const newCommentId = uuidv4();
         const createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
@@ -338,7 +338,7 @@ router.post('/:id/comments', async (req, res) => {
             [newCommentId, id, userId, comment, createdAt]
         );
 
-        // ユーザーのニックネームを取得
+        
         const [userResult] = await db.query('SELECT nickname FROM users WHERE id = ?', [userId]);
         const userNickname = userResult[0]?.nickname || 'Unknown';
 
@@ -354,7 +354,7 @@ router.post('/:id/comments', async (req, res) => {
     }
 });
 
-// 投票アクションを完了
+
 router.post('/vote-actions/:id/resolve', async (req, res) => {
     const { id } = req.params;
     const { reason, targetUserId, userId, groupId } = req.body;
@@ -364,7 +364,7 @@ router.post('/vote-actions/:id/resolve', async (req, res) => {
     }
 
     try {
-        // 期限切れまたは通常の解決を処理
+        
         await processVoteById(id, reason, userId, targetUserId, groupId);
 
         res.json({ message: 'Vote resolved successfully.' });
@@ -379,7 +379,7 @@ const processVoteById = async (voteId, reason = null, userId = null, targetUserI
     await connection.beginTransaction();
 
     try {
-        // 投票の詳細を取得
+        
         const [voteDetails] = await connection.query(
             `SELECT target_user_id, user_id, group_id, resolved, reason 
              FROM vote_actions 
@@ -392,13 +392,13 @@ const processVoteById = async (voteId, reason = null, userId = null, targetUserI
             return;
         }
 
-        // 必要なデータを取得
+        
         targetUserId = targetUserId || voteDetails[0].target_user_id;
         userId = userId || voteDetails[0].user_id;
         groupId = groupId || voteDetails[0].group_id;
-        reason = reason || voteDetails[0].reason; // 投票詳細から理由を取得
+        reason = reason || voteDetails[0].reason; 
 
-        // 賛成と反対の投票数を取得
+        
         const [voteCounts] = await connection.query(
             `SELECT 
                 SUM(vote_type = 'yes') AS yesVotes, 
@@ -413,7 +413,7 @@ const processVoteById = async (voteId, reason = null, userId = null, targetUserI
 
         const result = yesVotes > noVotes ? 'success' : 'failure';
 
-        // userIdからニックネームを取得
+        
         const [representativeResult] = await connection.query(
             'SELECT nickname FROM users WHERE id = ?',
             [userId]
@@ -425,7 +425,7 @@ const processVoteById = async (voteId, reason = null, userId = null, targetUserI
             : [];
         const targetUserName = targetUserResult[0]?.nickname || '不明';
 
-        // 投票を resolved 状態にし、名前を保存
+        
         await connection.query(
             `UPDATE vote_actions 
             SET resolved = true, reason = ?, representative_name = ?, target_user_name = ? 
@@ -438,31 +438,31 @@ const processVoteById = async (voteId, reason = null, userId = null, targetUserI
             ]
         );
 
-        // 履歴に記録
+        
         await connection.query(
             `INSERT INTO histories 
             (vote_action_id, action, reason, yes, no, resolved, deadline, target_user, representative, group_id) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 voteId,
-                '追放', // 固定値
+                '追放', 
                 reason,
                 yesVotes,
                 noVotes,
                 true,
-                new Date(), // 現在時刻を登録
+                new Date(), 
                 targetUserName,
                 representativeName,
                 groupId,
             ]
         );
 
-        // 投票記録を削除
+        
         await connection.query('DELETE FROM vote_records WHERE vote_action_id = ?', [voteId]);
 
         if (result === 'success') {
 
-            // 可決の場合、関連データを削除
+            
             if (targetUserId) {
                 const [userResult] = await connection.query('SELECT icon FROM users WHERE id = ?', [targetUserId]);
                 const userIconPath = userResult[0]?.icon;
@@ -481,7 +481,7 @@ const processVoteById = async (voteId, reason = null, userId = null, targetUserI
             await connection.query('DELETE FROM vote_records WHERE vote_action_id = ?', [voteId]);
             await connection.query('DELETE FROM vote_actions WHERE target_user_id = ?', [targetUserId]);
             await connection.query('DELETE FROM representative_votes WHERE candidate_id = ?', [targetUserId]);
-            await connection.query('DELETE FROM users WHERE id = ?', [targetUserId]); // 最後にユーザー削除
+            await connection.query('DELETE FROM users WHERE id = ?', [targetUserId]); 
         }
 
         await connection.commit();

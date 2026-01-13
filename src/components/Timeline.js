@@ -24,12 +24,12 @@ const Timeline = () => {
 
     const API_URL = process.env.REACT_APP_API_URL;
 
-    // groupIdの取得と投稿データの取得
+    
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true); // ローディング開始
+            setLoading(true); 
             try {
-                // 投稿データを取得（group_idはバックエンドが管理）
+                
                 const response = await axios.get(`${API_URL}/api/posts`, { withCredentials: true });
                 if (response.data.success) {
                     setPosts(response.data.posts || []);
@@ -39,7 +39,7 @@ const Timeline = () => {
             } catch (error) {
                 console.error('データ取得エラー:', error.message);
             } finally {
-                setLoading(false); // ローディング終了
+                setLoading(false); 
             }
         };
 
@@ -56,7 +56,7 @@ const Timeline = () => {
             return;
         }
         try {
-            await addPost(newPostContent.trim(), groupId); // 投稿の追加処理を実行
+            await addPost(newPostContent.trim(), groupId); 
             setNewPostContent('');
             setIsPostFormVisible(false);
         } catch (error) {
@@ -78,7 +78,7 @@ const Timeline = () => {
             await addComment(postId, commentContent.trim(), groupId);
             setNewCommentContent('');
             setIsCommentFormVisible(null);
-            await fetchData(groupId); // コメント後に投稿データを再取得
+            await fetchData(groupId); 
         } catch (error) {
             alert('コメントの追加に失敗しました。');
             console.error('コメント追加エラー:', error);
@@ -90,7 +90,7 @@ const Timeline = () => {
     };
 
     const hideMailIcon = () => {
-        setSelectedUserId(null); // ユーザー選択をリセット
+        setSelectedUserId(null); 
     };
 
     return (

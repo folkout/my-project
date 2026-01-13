@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // データベース接続モジュール
+const db = require('../db'); 
 
 router.get('/vote-actions', async (req, res) => {
     try {
-        // Cookieからgroup_idを取得
+        
         const groupId = req.cookies.group_id;
         if (!groupId) {
             return res.status(400).json({ message: 'Group ID is missing in cookies.' });
         }
 
-        // histories テーブルから必要な情報を取得
+        
         const [histories] = await db.query(`
             SELECT 
                 id AS vote_action_id,
@@ -28,13 +28,13 @@ router.get('/vote-actions', async (req, res) => {
             ORDER BY created_at DESC;
         `, [groupId]);
 
-        // 各履歴について追加計算なしに直接レスポンスを返す
+        
         const formattedHistories = histories.map(history => {
             return {
                 deadline: history.deadline,
                 action: history.action,
-                yes: parseInt(history.yes, 10) || 0, // 明示的に数値として扱う
-                no: parseInt(history.no, 10) || 0,  // 明示的に数値として扱う
+                yes: parseInt(history.yes, 10) || 0, 
+                no: parseInt(history.no, 10) || 0,  
                 representative: history.representative || '不明',
                 target_user: history.target_user || '不明',
                 reason: history.reason || '理由なし',

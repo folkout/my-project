@@ -3,25 +3,25 @@ import axios from 'axios';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
-    const [nickname, setNickname] = useState(''); // ニックネーム
-    const [icon, setIcon] = useState(''); // アイコンURL
-    const [iconPreview, setIconPreview] = useState(''); // アイコンプレビュー
-    const [isEditing, setIsEditing] = useState(false); // 編集モード
-    const [message, setMessage] = useState(''); // メッセージ表示用
-    const [loading, setLoading] = useState(true); // ローディング状態
+    const [nickname, setNickname] = useState(''); 
+    const [icon, setIcon] = useState(''); 
+    const [iconPreview, setIconPreview] = useState(''); 
+    const [isEditing, setIsEditing] = useState(false); 
+    const [message, setMessage] = useState(''); 
+    const [loading, setLoading] = useState(true); 
     const [userId, setUserId] = useState(null);
-    const [announcement, setAnnouncement] = useState(''); // アナウンス用の状態
+    const [announcement, setAnnouncement] = useState(''); 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const API_URL = process.env.REACT_APP_API_URL;
 
-    // 認証済みユーザー情報の取得
+    
     const fetchUserData = async () => {
         try {
             const response = await axios.post(
                 `${API_URL}/api/users/me`,
                 {},
-                { withCredentials: true } // Cookieを送信
+                { withCredentials: true } 
             );
     
             if (response.data.success) {
@@ -33,38 +33,38 @@ const ProfilePage = () => {
                 console.error('ユーザー情報取得失敗:', response.data.error);
             }
         } catch (error) {
-            console.error('Error fetching user data:', error.message); // エラーログ
+            console.error('Error fetching user data:', error.message); 
         } finally {
-            setLoading(false); // ロード完了
+            setLoading(false); 
         }
     };
 
-    // 初回ロード時にデータを取得
+    
     useEffect(() => {
         fetchUserData();
     }, []);
 
-    // ニックネーム変更時のハンドラー
+    
     const handleNicknameChange = (e) => {
         setNickname(e.target.value);
     };
 
-    // アイコン変更時のハンドラー
+    
     const handleIconChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             const previewUrl = URL.createObjectURL(file);
             setIcon(file);
-            setIconPreview(previewUrl); // プレビュー用URLを生成
+            setIconPreview(previewUrl); 
         }
     };
 
-    // 保存処理
+    
     const handleSave = async () => {
         try {
             const formData = new FormData();
             if (nickname.trim()) formData.append('nickname', nickname.trim());
-            if (icon && typeof icon !== 'string') formData.append('icon', icon); // iconが空の場合送信しない
+            if (icon && typeof icon !== 'string') formData.append('icon', icon); 
 
             const response = await axios.put(
                 `${API_URL}/api/users/settings`,
@@ -75,7 +75,7 @@ const ProfilePage = () => {
             if (response.status === 200 && response.data.success) {
                 setMessage('設定が正常に保存されました！');
 
-                // フロントエンドの状態を更新
+                
                 const { nickname: newNickname, icon: newIcon } = response.data.user;
                 setNickname(newNickname);
                 setIconPreview(newIcon);
@@ -90,7 +90,7 @@ const ProfilePage = () => {
         }
     };   
 
-// アカウント削除
+
 const handleDeleteAccount = async () => {
     const confirmDelete = window.confirm(
         '実行するとアカウントが失われます。本当に削除しますか？'
@@ -99,15 +99,15 @@ const handleDeleteAccount = async () => {
 
     try {
         const response = await axios.delete(`${API_URL}/api/users/delete`, {
-            withCredentials: true, // Cookieを送信
+            withCredentials: true, 
         });
 
         if (response.status === 200) {
-            // アカウント削除成功時の処理
-            localStorage.clear(); // ローカルストレージをクリア
-            setIsLoggedIn(false); // ログイン状態を解除
+            
+            localStorage.clear(); 
+            setIsLoggedIn(false); 
             alert('アカウントが削除されました');
-            window.location.href = '/login'; // 明示的にログイン画面へ遷移
+            window.location.href = '/login'; 
         } else {
             setAnnouncement('Failed to delete account. Please try again later.');
         }

@@ -1,10 +1,10 @@
-/* ライブラリタイトル */
+
 .library-title {
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: #333; /* タイトルの文字色 */
+  color: #333; 
   padding: 20px;
 }
 
@@ -24,27 +24,27 @@
 
 .post-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* カードを自動的に配置 */
-  gap: 20px; /* カード間の隙間を20pxに設定 */
-  justify-items: center; /* カードを中央揃え */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: 20px; 
+  justify-items: center; 
 }
 
 .post-card {
   position: relative;
   margin-bottom: 20px;
   padding: 10px;
-  width: 350px; /* 横幅を適切な値に設定（例: 200px） */
-  height: 250px; /* 高さを統一 */
+  width: 350px; 
+  height: 250px; 
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* コンテンツとフッターの間に隙間を作る */
+  justify-content: space-between; 
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* はみ出しコンテンツを隠す */
+  overflow: hidden; 
   transition: box-shadow 0.3s ease, transform 0.2s ease;
-  justify-content: space-between; /* コンテンツとフッター間の隙間を管理 */
-  gap: 5px; /* フッターとコンテンツの間隔を狭める */
+  justify-content: space-between; 
+  gap: 5px; 
 }
 
 .post-card:hover {
@@ -55,24 +55,24 @@
 .post-card-content {
   padding: 15px;
   font-size: 16px;
-  flex: 1; /* 残りの高さを全て使う */
-  overflow: auto; /* コンテンツが多い場合にスクロールを有効にする */
-  margin-bottom: 0; /* 不要な下余白を削除 */
+  flex: 1; 
+  overflow: auto; 
+  margin-bottom: 0; 
 }
 
 .post-card-footer {
   display: flex;
-  justify-content: space-between; /* 左と右に要素を分ける */
-  align-items: center; /* アイテムを縦方向で中央揃え */
-  padding: 5px 10px; /* 上下左右に適切な余白を設定 */
-  margin-top: 10px; /* フッターの上に余白を追加 */
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 5px 10px; 
+  margin-top: 10px; 
 }
 
 
 .delete-button {
   background: none;
   border: none;
-  color: #f44336; /* 赤色 */
+  color: #f44336; 
   font-size: 18px;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -86,25 +86,25 @@
   outline: none;
 }
 
-/* 投稿内容のテキストスタイル */
+
 .post-content, .comment-content{
-  flex-grow: 1; /* 残りのスペースを埋める */
-  font-size: 14px; /* テキストサイズ */
-  line-height: 1.5; /* 行間 */
-  margin-bottom: 10px; /* 下余白 */
-  overflow: hidden; /* コンテンツのはみ出しを隠す */
-  text-overflow: ellipsis; /* コンテンツが溢れた場合の省略表記 */
-  font-family: 'Roboto', sans-serif; /* フォント */
-  color: #333; /* テキスト色 */
+  flex-grow: 1; 
+  font-size: 14px; 
+  line-height: 1.5; 
+  margin-bottom: 10px; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  font-family: 'Roboto', sans-serif; 
+  color: #333; 
 }
 
 .author-info {
   display: flex;
-  align-items: center; /* 縦の中央揃え */
-  gap: 8px; /* アイコンとニックネームの間隔 */
+  align-items: center; 
+  gap: 8px; 
 }
 
-/* 投稿アイコン */
+
 .author-icon {
   width: 40px;
   height: 40px;
@@ -112,7 +112,7 @@
   margin-bottom: 10px;
 }
 
-/* 投稿のニックネーム */
+
 .author-nickname {
   font-weight: bold;
   margin-bottom: 5px;
@@ -121,9 +121,9 @@
 .search-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* 横方向の中央揃え */
-  margin: 0 auto 20px auto; /* 上下左右の余白を調整（上下は20px、左右は自動） */
-  width: 300px; /* 横幅を固定 */
+  justify-content: center; 
+  margin: 0 auto 20px auto; 
+  width: 300px; 
 }
 
 
@@ -141,16 +141,16 @@
 }
 
 
-/* 投稿カードとタグの間隔調整 */
+
 .post-tags-outside {
   margin-bottom: 5px;
   display: flex;
   gap: 5px;
 }
 
-/* タグ付けアイコンとゴミ箱アイコンの横並び */
+
 .icon-group {
-  position: relative; /* 子要素の基準点を作る */
+  position: relative; 
   display: flex;
   gap: 30px;
   justify-content: flex-end;
@@ -180,7 +180,7 @@
   margin-bottom: 20px;
 }
 
-/* タグエリアのスタイル */
+
 .tags-area .tag {
   margin-right: 5px;
   padding: 3px 8px;
@@ -194,10 +194,10 @@
   color: #fff;
 }
 
-/* タグ選択ポップアップ */
+
 .tag-select-popup {
   position: absolute;
-  bottom: 28px; /* アイコン上部に表示 */
+  bottom: 28px; 
   left: 50%;
   transform: translateX(-50%);
   z-index: 1010;
@@ -250,25 +250,25 @@ background: none;
 border: none;
 color: #007bff;
 cursor: pointer;
-width: 30px; /* ボタンの幅を調整 */
-height: 30px; /* ボタンの高さを調整 */
+width: 30px; 
+height: 30px; 
 position: fixed;
-bottom: 80px; /* ヘッダーと被らないよう上に調整 */
-right: 20px; /* 右からの距離 */
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 影を調整 */
+bottom: 80px; 
+right: 20px; 
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
 transition: background-color 0.3s, transform 0.2s;
-z-index: 1000; /* 他の要素より前面に表示 */
+z-index: 1000; 
 }
 
 .tag-command-icon:hover {
   color: #0056b3;
-  transform: scale(1.1); /* ホバー時に少し拡大 */
+  transform: scale(1.1); 
 }
 
-/* 左下にタグを表示するスタイル */
+
 .post-tags-inline {
   display: flex;
-  gap: 5px; /* タグ間の余白 */
+  gap: 5px; 
 }
 
 .post-tags-inline .tag {
@@ -291,12 +291,12 @@ z-index: 1000; /* 他の要素より前面に表示 */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* タグ入力エリア */
+
 .tag-input-section input {
   font-size: 12px;
   padding: 5px;
   margin-right: 5px;
-  width: 70%; /* 幅を縮小 */
+  width: 70%; 
 }
 
 .tag-add-button {
@@ -313,7 +313,7 @@ z-index: 1000; /* 他の要素より前面に表示 */
   background-color: #0056b3;
 }
 
-/* タグリスト要素 */
+
 .tag-list {
   margin-top: 10px;
 }
@@ -322,7 +322,7 @@ z-index: 1000; /* 他の要素より前面に表示 */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px; /* タグ名の文字サイズ */
+  font-size: 12px; 
   margin-bottom: 5px;
 }
 
@@ -344,7 +344,7 @@ z-index: 1000; /* 他の要素より前面に表示 */
   background-color: #777;
 }
 
-/* タグ要素 */
+
 .tag {
   font-size: 12px;
   padding: 3px 6px;
@@ -402,11 +402,11 @@ z-index: 1000; /* 他の要素より前面に表示 */
   border-bottom: 1px solid #ccc;
 }
 
-/* 投稿・コメント共通 */
+
 .post-header, .comment-header {
   display: flex;
   align-items: center;
-  gap: 10px; /* アイコンとテキストの間隔 */
+  gap: 10px; 
 }
 
 .post-header-details, .comment-header-details {
@@ -424,7 +424,7 @@ z-index: 1000; /* 他の要素より前面に表示 */
   color: #666;
 }
 
-/* アイコン */
+
 .post-icon, .comment-icon {
   width: 40px;
   height: 40px;
@@ -434,8 +434,8 @@ z-index: 1000; /* 他の要素より前面に表示 */
 
 .mail-icon {
   position: absolute;
-  top: 10px; /* 投稿者アイコンに合わせた位置調整 */
-  left: 60px; /* 投稿者アイコンの右側に配置 */
+  top: 10px; 
+  left: 60px; 
   background-color: white;
   border-radius: 50%;
   padding: 8px;

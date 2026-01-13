@@ -1,35 +1,35 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // データベース接続モジュール
+const db = require('../db'); 
 const multer = require('multer');
 const fs = require('fs');
+const jwt = require('jsonwebtoken'); 
 const path = require('path');
-const jwt = require('jsonwebtoken'); // トークン検証用
 
-// JSONとURLエンコードされたデータのパースを有効に
+
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
-// uploadsディレクトリが存在しない場合に作成
+
 const uploadsDir = path.join(__dirname, '../uploads');
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir);
 }
 
-// 画像保存用の設定
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, uploadsDir); // 画像の保存先ディレクトリ
+        cb(null, uploadsDir); 
     },
     filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname); // 拡張子を取得
-        cb(null, `${Date.now()}${ext}`); // ファイル名を一意にする
+        const ext = path.extname(file.originalname); 
+        cb(null, `${Date.now()}${ext}`); 
     },
 });
 
 const upload = multer({
     storage,
-    limits: { fileSize: 10 * 1024 * 1024 }, // **10MB に拡張**
+    limits: { fileSize: 10 * 1024 * 1024 }, 
 });
 
 router.post('/me', async (req, res) => {
@@ -57,7 +57,7 @@ router.post('/me', async (req, res) => {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
 
-        // 正常なレスポンスを返す
+        
         res.status(200).json({ success: true, user: rows[0] });
 
     } catch (error) {
@@ -68,7 +68,7 @@ router.post('/me', async (req, res) => {
 
 router.put('/settings', upload.single('icon'), async (req, res) => {
     try {
-        // トークンを検証して userId を取得
+        
         const token = req.cookies.access_token;
         if (!token) {
             return res.status(401).json({ success: false, message: 'Unauthorized: No token provided' });
@@ -84,17 +84,17 @@ router.put('/settings', upload.single('icon'), async (req, res) => {
 
         const userId = decoded.user_id;
         const nickname = req.body.nickname?.trim();
-        const ext = req.file ? path.extname(req.file.originalname) : null; // ファイルが存在すれば拡張子取得
+        const ext = req.file ? path.extname(req.file.originalname) : null; 
         const newIconPath = ext ? path.join(uploadsDir, `${userId}${ext}`) : null;
 
-        // 既存のユーザー情報を取得
+        
         const [[existingUser]] = await db.execute('SELECT nickname, icon FROM users WHERE id = ?', [userId]);
         if (!existingUser) {
             console.error('User not found:', userId);
             return res.status(404).json({ success: false, error: 'ユーザーが見つかりません。' });
         }
 
-        // 既存アイコンを削除
+        
         if (newIconPath && existingUser.icon && existingUser.icon.startsWith('/uploads/')) {
             const oldIconPath = path.join(__dirname, '..', existingUser.icon);
             if (fs.existsSync(oldIconPath)) {
@@ -102,7 +102,7 @@ router.put('/settings', upload.single('icon'), async (req, res) => {
             }
         }
 
-        // 新しいアイコンを保存
+        
         if (newIconPath) {
             fs.renameSync(req.file.path, newIconPath);
         }
@@ -110,7 +110,7 @@ router.put('/settings', upload.single('icon'), async (req, res) => {
         const finalNickname = nickname || existingUser.nickname || `user${userId}`;
         const finalIconUrl = newIconPath ? `/uploads/${userId}${ext}` : existingUser.icon;
 
-        // ユーザー情報を更新
+        
         const queryParts = [];
         const params = [];
 
@@ -148,7 +148,7 @@ router.put('/settings', upload.single('icon'), async (req, res) => {
     }
 });
 
-// アイコン更新エンドポイント
+
 router.put('/:userId/icon', async (req, res) => {
     const { userId } = req.params;
     const { iconUrl } = req.body;
@@ -171,10 +171,10 @@ router.put('/:userId/icon', async (req, res) => {
     }
 });
 
-// アカウント削除エンドポイント
+
 router.delete('/delete', async (req, res) => {
     try {
-        // トークンを検証して userId を取得
+        
         const token = req.cookies.access_token;
         if (!token) {
             return res.status(401).json({ message: 'Unauthorized: No token provided' });
@@ -194,8 +194,8 @@ router.delete('/delete', async (req, res) => {
         await connection.beginTransaction();
 
         try {
-            // 関連データを削除
-            const [userResult] = await connection.query('SELECT icon FROM users WHERE id = ?', [userId]); // 修正: targetUserId → userId
+            
+            const [userResult] = await connection.query('SELECT icon FROM users WHERE id = ?', [userId]); 
             const userIconPath = userResult[0]?.icon;
 
             if (userIconPath && userIconPath.startsWith('/uploads/')) {
@@ -212,10 +212,10 @@ router.delete('/delete', async (req, res) => {
             await connection.query('DELETE FROM representative_votes WHERE candidate_id = ?', [userId]);
             await connection.query('DELETE FROM users WHERE id = ?', [userId]);
 
-            await connection.commit(); // コミット
+            await connection.commit(); 
             res.json({ message: 'Account deleted successfully.' });
         } catch (error) {
-            await connection.rollback(); // ロールバック
+            await connection.rollback(); 
             console.error('Error deleting user account:', error);
             res.status(500).json({ message: 'Error deleting account.' });
         } finally {
@@ -229,14 +229,14 @@ router.delete('/delete', async (req, res) => {
 
 router.post('/check-status', async (req, res) => {
     try {
-        // Cookieからトークンを取得
+        
         const token = req.cookies.access_token;
 
         if (!token) {
             return res.status(401).json({ success: false, message: 'Unauthorized: No token provided' });
         }
 
-        // トークンを検証
+        
         let decoded;
         try {
             decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -247,7 +247,7 @@ router.post('/check-status', async (req, res) => {
 
         const userId = decoded.user_id;
 
-        // ユーザーの存在確認
+        
         const [rows] = await db.query('SELECT id FROM users WHERE id = ?', [userId]);
 
         if (rows.length === 0) {

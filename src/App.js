@@ -11,7 +11,7 @@ import { FaHome, FaClipboardList, FaScroll, FaVoteYea, FaUser } from 'react-icon
 import './App.css';
 
 const App = () => {
-    const [loading, setLoading] = useState(true); // ローディング状態を管理
+    const [loading, setLoading] = useState(true); 
     const [inputKey, setInputKey] = useState('');
     const [generatedKey, setGeneratedKey] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -79,7 +79,7 @@ const App = () => {
         }
     };
 
-    // 認証済みユーザー情報の取得
+    
     const fetchUserData = async () => {
         try {
             const response = await axios.post(
@@ -108,7 +108,7 @@ const App = () => {
         }
     };
 
-    // ユーザー状態を確認
+    
     const checkUserStatus = async () => {
         try {
             const response = await axios.post(
@@ -138,7 +138,7 @@ const App = () => {
                 setIsLoggedIn(true);
         
                 try {
-                    await fetchUserData(); // ユーザー情報を再取得
+                    await fetchUserData(); 
                     await checkUserStatus();
                 } catch (error) {
                     console.error('Error during user data restoration:', error.message);

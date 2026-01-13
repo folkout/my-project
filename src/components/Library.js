@@ -25,30 +25,30 @@ const Library = () => {
     });
     const [groupId, setGroupId] = useState(() => {
         const storedGroupId = localStorage.getItem('group_id');
-        return storedGroupId ? parseInt(storedGroupId, 10) : 1; // デフォルト値を1に設定
+        return storedGroupId ? parseInt(storedGroupId, 10) : 1; 
     });
     const [currentGroupId, setCurrentGroupId] = useState(() => {
         const storedGroupId = localStorage.getItem('group_id');
-        return storedGroupId ? parseInt(storedGroupId, 10) : 1; // デフォルト値を1に設定
+        return storedGroupId ? parseInt(storedGroupId, 10) : 1; 
     });
     const [isRepresentative, setIsRepresentative] = useState(false);
 
     const API_URL = process.env.REACT_APP_API_URL;
 
-    // ポップアップ外をクリックした時の処理を改良
+    
     useEffect(() => {
         const handleOutsideClick = (event) => {
-            // タグポップアップを閉じる
+            
             if (activeTagId && tagPopupRef.current && !tagPopupRef.current.contains(event.target)) {
                 setActiveTagId(null);
             }
     
-            // タグ管理ポップアップを閉じる
+            
             if (isTagFormVisible && tagManagerRef.current && !tagManagerRef.current.contains(event.target)) {
                 setTagFormVisible(false);
             }
     
-            // DMアイコンを非表示
+            
             const mailIcon = document.querySelector('.mail-icon');
             if (mailIcon && !mailIcon.contains(event.target)) {
                 setSelectedUserId(null);
@@ -63,15 +63,15 @@ const Library = () => {
         const fetchLibraryPosts = async () => {
             try {
                 const response = await axios.get(`${API_URL}/api/posts/is_in_library`, {
-                    withCredentials: true, // クッキーを送信
+                    withCredentials: true, 
                 });
     
                 if (response.status === 200 && Array.isArray(response.data.library)) {
                     const libraryPosts = await Promise.all(
                         response.data.library.map(async (post) => {
                             try {
-                                const editor = await fetchUserById(post.last_editor_id); // 最終編集者情報の取得
-                                const author = await fetchUserById(post.user_id); // 投稿者情報の取得
+                                const editor = await fetchUserById(post.last_editor_id); 
+                                const author = await fetchUserById(post.user_id); 
                                 return {
                                     ...post,
                                     postAuthorName: post.post_nickname || '不明',
@@ -98,7 +98,7 @@ const Library = () => {
         const fetchUserById = async (userId) => {
             try {
                 const response = await axios.get(`${API_URL}/api/users/${userId}`, {
-                    withCredentials: true, // クッキーを送信
+                    withCredentials: true, 
                 });
                 return response.data.user;
             } catch (error) {
@@ -110,7 +110,7 @@ const Library = () => {
         const fetchTags = async () => {
             try {
                 const response = await axios.get(`${API_URL}/api/tags`, {
-                    withCredentials: true, // クッキーを送信
+                    withCredentials: true, 
                 });
     
                 if (response.status === 200 && Array.isArray(response.data.tags)) {
@@ -140,12 +140,12 @@ const Library = () => {
         try {
             const response = await axios.post(
                 `${API_URL}/api/tags`,
-                { name: newTag.trim() }, // group_id を削除
-                { withCredentials: true } // クッキーを送信
+                { name: newTag.trim() }, 
+                { withCredentials: true } 
             );
     
             if (response.data.success) {
-                setTags([response.data.tag, ...tags]); // タグ一覧を更新
+                setTags([response.data.tag, ...tags]); 
                 setNewTag('');
             }
         } catch (error) {
@@ -153,11 +153,11 @@ const Library = () => {
         }
     };    
     
-    // フィルタリングされた投稿一覧を取得
+    
     const filteredPosts = posts
         .filter(post => {
             const matchesContent = post.content?.toLowerCase().includes(searchTerm.toLowerCase());
-            const matchesTag = selectedTag === '' || post.tag === selectedTag; // post.tagを直接使用
+            const matchesTag = selectedTag === '' || post.tag === selectedTag; 
             return matchesContent && matchesTag;
         })
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -172,13 +172,13 @@ const Library = () => {
                 const response = await axios.delete(
                     `${API_URL}/api/tags/${tagId}`,
                     {
-                        withCredentials: true, // Cookieを送信
+                        withCredentials: true, 
                     }
                 );
         
                 if (response.data.success) {
                     alert('タグ削除が完了しました');
-                    setTags((prevTags) => prevTags.filter((tag) => tag.id !== tagId)); // タグ一覧を更新
+                    setTags((prevTags) => prevTags.filter((tag) => tag.id !== tagId)); 
                 } else {
                     alert(response.data.message || 'タグ削除に失敗しました');
                 }
@@ -193,7 +193,7 @@ const Library = () => {
         };    
 
     const hideMailIcon = () => {
-        setSelectedUserId(null); // ユーザー選択をリセット
+        setSelectedUserId(null); 
     };
 
     return (
@@ -237,8 +237,8 @@ const Library = () => {
                             style={{ width: '50px', height: '50px' }}
                             className="author-icon"
                             onClick={(e) => {
-                                e.stopPropagation(); // クリックイベントの伝播を防止
-                                setSelectedUserId(post.id); // 投稿者を選択
+                                e.stopPropagation(); 
+                                setSelectedUserId(post.id); 
                             }}
                         />
                             <p className="author-nickname">{post.postAuthorName}</p>
@@ -256,7 +256,7 @@ const Library = () => {
                                 {/* コメントアイコン */}
                                 <FontAwesomeIcon
                                     icon={faComments}
-                                    onClick={() => setPopupOpen(post.id)} // オーバーレイを開く
+                                    onClick={() => setPopupOpen(post.id)} 
                                     className="icon"
                                     title="コメントを見る"
                                 />
@@ -275,7 +275,7 @@ const Library = () => {
                                         {tags.map((tag) => (
                                             <span
                                                 key={tag.id}
-                                                className={`tag-option ${tag.name === post.tag ? 'active' : ''}`} // 現在のタグを強調
+                                                className={`tag-option ${tag.name === post.tag ? 'active' : ''}`} 
                                                 onClick={async () => {
                                                     try {
 
@@ -286,8 +286,8 @@ const Library = () => {
 
                                                         const response = await axios.put(
                                                             `${API_URL}/api/posts/${activeTagId}/tag`,
-                                                            { tag_name: tag.name.trim() }, // リクエストボディにタグ名のみ送信
-                                                            { withCredentials: true } // Cookieを送信
+                                                            { tag_name: tag.name.trim() }, 
+                                                            { withCredentials: true } 
                                                         );
 
                                                         if (response.data.success) {
@@ -302,7 +302,7 @@ const Library = () => {
                                                     } catch (error) {
                                                         console.error('タグ設定エラー:', error);
                                                     } finally {
-                                                        setActiveTagId(null); // アクティブ状態を解除
+                                                        setActiveTagId(null); 
                                                     }
                                                 }}
                                             >
@@ -363,11 +363,11 @@ const Library = () => {
             {popupOpen && (
             <div
                 className="fullscreen-overlay"
-                onClick={() => setPopupOpen(null)} // オーバーレイ外をクリックすると閉じる
+                onClick={() => setPopupOpen(null)} 
             >
                 <div
                     className="overlay-content"
-                    onClick={(e) => e.stopPropagation()} // 中身をクリックしても閉じない
+                    onClick={(e) => e.stopPropagation()} 
                 >
 
                     {/* 投稿情報 */}

@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* 上部に移動 */
+  justify-content: flex-start; 
   min-height: 100vh;
-  padding-top: 50px; /* 上部の余白調整 */
+  padding-top: 50px; 
   font-family: Arial, sans-serif;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .profile-actions button {
-  width: 120px; /* キャンセルボタンが改行しないサイズに変更 */
+  width: 120px; 
   height: 40px;
   font-size: 1rem;
   color: white;
@@ -66,14 +66,14 @@
   background-color: #0056b3;
 }
 
-/* アカウント削除ボタン */
+
 .delete-button {
   display: inline-block;
   padding: 10px 20px;
   font-size: 14px;
   font-weight: bold;
-  color: #fff; /* 白い文字 */
-  background-color: #dc3545; /* 赤色の背景 */
+  color: #fff; 
+  background-color: #dc3545; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -81,5 +81,5 @@
 }
 
 .delete-button:hover {
-  background-color: #a71d2a; /* ホバー時の濃い赤 */
+  background-color: #a71d2a; 
 }

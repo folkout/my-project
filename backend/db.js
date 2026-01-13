@@ -10,9 +10,9 @@ const db = mysql.createPool({
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
     waitForConnections: true,
-    connectionLimit: 10,  // 最大接続数
-    queueLimit: 0         // クエリの待機数無制限
+    connectionLimit: 10,  
+    queueLimit: 0         
 });
 
-// プールを使ってクエリを実行できるようにする
+
 module.exports = db.promise();

@@ -1,15 +1,15 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* すべての要素で幅計算を統一 */
+  box-sizing: border-box; 
 }
 
 
 body {
-  overflow-y: scroll; /* 常に縦スクロールバーを表示 */
+  overflow-y: scroll; 
 }
 
-/* ナビゲーション */
+
 nav {
   display: flex;
   justify-content: center;
@@ -31,10 +31,10 @@ nav a {
 
 nav a:hover {
   color: #0056b3;
-  transform: scale(1.1); /* マウスホバー時の軽いズーム */
+  transform: scale(1.1); 
 }
 
-/* タイムライン */
+
 .timeline {
   margin-top: 20px;
   max-width: 800px;
@@ -60,7 +60,7 @@ nav a:hover {
   margin-top: 15px;
 }
 
-/* プロフィールアイコンプレビュー */
+
 .icon-preview {
   text-align: center;
 }
@@ -75,7 +75,7 @@ nav a:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* ボタン */
+
 button {
   margin-top: 15px;
   padding: 10px 15px;
@@ -91,10 +91,10 @@ button {
 
 button:hover {
   background-color: #0056b3;
-  transform: scale(1.05); /* ボタンの軽いズーム */
+  transform: scale(1.05); 
 }
 
-/* レスポンシブデザイン */
+
 @media (max-width: 768px) {
   .app {
       padding: 10px;
@@ -119,89 +119,89 @@ button:hover {
   }
 
   .header nav {
-    flex-direction: row; /* 常に横並び */
-    justify-content: space-evenly; /* 均等配置 */
-    gap: 5px; /* スペースを調整 */
+    flex-direction: row; 
+    justify-content: space-evenly; 
+    gap: 5px; 
 }
 
 .header nav a {
-    flex: 1; /* 各アイコンが均等に配置 */
-    font-size: 14px; /* フォントサイズを小さく調整 */
-    padding: 5px; /* 余白を調整 */
+    flex: 1; 
+    font-size: 14px; 
+    padding: 5px; 
 }
 }
 
-/* ヘッダーのスタイル */
+
 .header {
-  margin: 0 auto; /* 左右の余白を自動調整 */
+  margin: 0 auto; 
   margin-top: 40px;
-  margin-left: auto; /* 左右の余白を自動にして中央寄せ */
-  margin-right: auto; /* 左右の余白を自動にして中央寄せ */
-  max-width: 100%; /* ヘッダーが画面幅を超えないように */
-  text-align: center; /* 中央揃え */
-  padding: 0px; /* 必要に応じて余白を設定 */
-  box-sizing: border-box; /* 幅計算を正確に */
+  margin-left: auto; 
+  margin-right: auto; 
+  max-width: 100%; 
+  text-align: center; 
+  padding: 0px; 
+  box-sizing: border-box; 
 }
 
 .header h1 {
-  font-size: 2rem; /* フォントサイズ */
-  color: #007bff; /* 青色基調をそのまま使用 */
+  font-size: 2rem; 
+  color: #007bff; 
   font-weight: bold;
-  font-family: 'Quicksand', sans-serif; /* 温かみのあるフォント */
+  font-family: 'Quicksand', sans-serif; 
   letter-spacing: 1px;
   margin: 0;
-  padding: 10px 20px; /* タイトル周りの余白 */
-  background-color: #f8f9fa; /* 薄い灰色背景 */
-  border-radius: 8px; /* 丸みを帯びた角 */
-  display: inline-block; /* 背景をタイトルだけに適用する */
+  padding: 10px 20px; 
+  background-color: #f8f9fa; 
+  border-radius: 8px; 
+  display: inline-block; 
 }
 
 .header nav {
   display: flex;
-  justify-content: space-evenly; /* 均等配置 */
-  position: fixed; /* 固定 */
-  bottom: 0; /* 画面下部に固定 */
-  width: 100%; /* 幅を画面幅いっぱいに */
-  margin: 0; /* 外側の余白をリセット */
-  background-color: white; /* 背景色を白に設定 */
-  z-index: 10; /* 前面に表示 */
-  border-top: 1px solid #ddd; /* 上に境界線を追加 */
-  box-sizing: border-box; /* paddingを含めて幅を計算 */
+  justify-content: space-evenly; 
+  position: fixed; 
+  bottom: 0; 
+  width: 100%; 
+  margin: 0; 
+  background-color: white; 
+  z-index: 10; 
+  border-top: 1px solid #ddd; 
+  box-sizing: border-box; 
 }
 
 .header nav a {
-  flex: 1 1 auto; /* 各アイコンが均等にサイズ調整 */
-  text-align: center; /* アイコンを中央揃え */
-  padding: 10px; /* クリックしやすくするための余白 */
-  text-decoration: none; /* 下線を消す */
-  color: #000; /* アイコンの色 */
+  flex: 1 1 auto; 
+  text-align: center; 
+  padding: 10px; 
+  text-decoration: none; 
+  color: #000; 
 }
 
 .header nav a:hover {
-  color: #007bff; /* ホバー時の色を変更 */
+  color: #007bff; 
 }
 
 main {
-  padding-bottom: 60px; /* 固定ナビゲーションバー分の余白を確保 */
+  padding-bottom: 60px; 
 }
 
-/* メディアクエリを調整 */
+
 @media (max-width: 600px) {
   .header nav {
-    width: calc(100% - 20px); /* スマホ画面で余白を調整 */
+    width: calc(100% - 20px); 
   }
 
   .header nav a {
-    font-size: 0.8rem; /* フォントサイズをさらに調整 */
-    padding: 5px; /* アイコン間の余白を減らす */
+    font-size: 0.8rem; 
+    padding: 5px; 
   }
 }
 
 .center-container {
   text-align: center;
   padding: 20px;
-  align-items: center; /* 要素を中央揃え */
-  gap: 15px; /* 各要素間のスペース */
+  align-items: center; 
+  gap: 15px; 
 }
 
 .center-container h2 {

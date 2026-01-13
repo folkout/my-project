@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const { v4: uuidv4 } = require('uuid'); // UUIDライブラリをインポート
-require('dotenv').config(); // 環境変数をロード
-const jwt = require('jsonwebtoken'); // トークン検証用
+const { v4: uuidv4 } = require('uuid'); 
+require('dotenv').config(); 
+const jwt = require('jsonwebtoken'); 
 
-// UUID形式チェック用関数
+
 const isUUID = (id) => /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id);
 
-// 投稿とコメントを一括で取得
+
 router.get('/', async (req, res) => {
-    const groupId = req.cookies.group_id; // クッキーから group_id を取得
+    const groupId = req.cookies.group_id; 
 
     if (!groupId) {
         return res.status(400).json({ success: false, error: 'Group ID is required' });
@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
                 post = {
                     id: row.post_id,
                     content: row.post_content,
-                    tag: row.post_tag, // タグ情報を追加
+                    tag: row.post_tag, 
                     created_at: row.post_created_at,
                     nickname: row.post_nickname,
                     icon: row.post_icon,
@@ -73,35 +73,35 @@ router.get('/', async (req, res) => {
     }
 });
 
-// 投稿を追加
+
 router.post('/', async (req, res) => {
     try {
-        // Cookieからトークンを取得
+        
         const token = req.cookies.access_token;
         if (!token) {
             console.warn('トークンがCookieにありません');
             return res.status(401).json({ success: false, message: 'Unauthorized' });
         }
 
-        // トークンを検証
+        
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.user_id;
 
-        // Cookieからgroup_idを取得
+        
         const groupId = req.cookies.group_id;
         if (!groupId) {
             console.warn('group_idがCookieにありません');
             return res.status(400).json({ success: false, message: 'Group ID is required' });
         }
 
-        // リクエストボディから投稿内容を取得
+        
         const { content } = req.body;
         if (!content) {
             console.warn('投稿内容が不完全');
             return res.status(400).json({ success: false, message: 'Content is required' });
         }
 
-        // 投稿データを保存
+        
         const newPostId = uuidv4();
         await db.query(
             'INSERT INTO posts (id, user_id, group_id, content) VALUES (?, ?, ?, ?)',
@@ -119,36 +119,36 @@ router.post('/', async (req, res) => {
     }
 });
 
-// コメントを追加
+
 router.post('/:postId/comments', async (req, res) => {
     try {
-        // Cookieからトークンを取得
+        
         const token = req.cookies.access_token;
         if (!token) {
             return res.status(401).json({ success: false, message: 'Unauthorized: Token missing' });
         }
 
-        // トークンを検証
+        
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.user_id;
 
-        // リクエストボディとパラメータからデータを取得
+        
         const { content } = req.body;
         const { postId } = req.params;
 
-        // 入力データを検証
+        
         if (!content || !postId) {
             console.warn('コメント内容またはpostIdが無効です');
             return res.status(400).json({ success: false, message: 'Content and postId are required' });
         }
 
-        // 投稿が存在するか確認
+        
         const [postRows] = await db.query('SELECT id FROM posts WHERE id = ?', [postId]);
         if (postRows.length === 0) {
             return res.status(404).json({ success: false, message: 'Post not found' });
         }
 
-        // コメントを保存
+        
         const commentId = uuidv4();
         await db.query(
             'INSERT INTO comments (id, post_id, content, user_id) VALUES (?, ?, ?, ?)',
@@ -171,16 +171,16 @@ router.post('/:postId/comments', async (req, res) => {
     }
 });
 
-// GET /api/posts/is_in_library
+
 router.get('/is_in_library', async (req, res) => {
     try {
-        // Cookieからgroup_idを取得
+        
         const groupId = req.cookies.group_id;
         if (!groupId) {
             return res.status(400).json({ success: false, message: 'Group ID is required' });
         }
 
-        // グループに基づいてライブラリ投稿を取得
+        
         const [libraryPosts] = await db.execute(`
             SELECT 
                 p.*, 
@@ -218,42 +218,42 @@ router.get('/is_in_library', async (req, res) => {
     }
 });
 
-// 投稿をライブラリに追加
+
 router.post('/:postId/add-to-library', async (req, res) => {
     try {
-        // Authorizationヘッダーからトークンを取得
-        const token = req.cookies.access_token; // Cookieからトークンを取得
-        console.log('Token received:', token); // トークンの受け取りをログ
+        
+        const token = req.cookies.access_token; 
+        console.log('Token received:', token); 
 
         if (!token) {
-            console.warn('No token provided'); // トークンがない場合の警告ログ
+            console.warn('No token provided'); 
             return res.status(401).json({ success: false, message: 'Unauthorized: Token missing' });
         }
 
-        // トークンを検証
+        
         let decoded;
         try {
             decoded = jwt.verify(token, process.env.JWT_SECRET);
-            console.log('Token verified successfully:', decoded); // トークン検証成功ログ
+            console.log('Token verified successfully:', decoded); 
         } catch (err) {
-            console.error('Token verification failed:', err.message); // トークン検証失敗ログ
+            console.error('Token verification failed:', err.message); 
             return res.status(403).json({ success: false, message: 'Invalid token' });
         }
 
         const userId = decoded.user_id;
-        console.log('User ID extracted from token:', userId); // トークンから抽出されたユーザーIDをログ
+        console.log('User ID extracted from token:', userId); 
 
-        // リクエストボディから投稿IDを取得
+        
         const { postId } = req.params;
 
-        // 投稿の存在確認
+        
         const [postRows] = await db.query('SELECT id FROM posts WHERE id = ?', [postId]);
         if (postRows.length === 0) {
             console.error('Post not found:', postId);
             return res.status(404).json({ success: false, message: 'Post not found' });
         }
 
-        // ライブラリに投稿を追加
+        
         const [updateResult] = await db.query(
             'UPDATE posts SET is_in_library = 1, added_to_library_at = NOW(), last_editor_id = ? WHERE id = ?',
             [userId, postId]
@@ -271,28 +271,28 @@ router.post('/:postId/add-to-library', async (req, res) => {
     }
 });
 
-// タグを更新
+
 router.put('/:postId/tag', async (req, res) => {
     try {
-        // Cookieからトークンを取得
+        
         const token = req.cookies.access_token;
         if (!token) {
             return res.status(401).json({ success: false, message: 'Unauthorized: Token missing' });
         }
 
-        // トークンを検証
+        
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.user_id;
 
         const { postId } = req.params;
-        const { tag_name } = req.body; // group_id を削除
+        const { tag_name } = req.body; 
 
         if (!tag_name || tag_name.trim() === '') {
             console.error('タグ名が不足しています');
             return res.status(400).json({ success: false, error: 'Tag name is required' });
         }
 
-        // タグと最終編集者を更新
+        
         const [result] = await db.execute(
             'UPDATE posts SET tag = ?, last_editor_id = ? WHERE id = ?',
             [tag_name.trim(), userId, postId]

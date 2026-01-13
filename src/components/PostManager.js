@@ -3,16 +3,16 @@ import axios from 'axios';
 
 export const usePostManager = () => {
     const [groupId, setGroupId] = useState(null);
-    const [posts, setPosts] = useState([]); // 投稿一覧
-    const [savedPosts, setSavedPosts] = useState([]); // ライブラリに保存された投稿
-    const [error, setError] = useState(null); // エラーステート
+    const [posts, setPosts] = useState([]); 
+    const [savedPosts, setSavedPosts] = useState([]); 
+    const [error, setError] = useState(null); 
 
     const API_URL = process.env.REACT_APP_API_URL;
 
-    // 投稿の取得処理
+    
     const fetchData = async () => {
         try {
-            // 投稿データを取得（group_idはバックエンドが管理）
+            
             const response = await axios.get(`${API_URL}/api/posts`, { withCredentials: true });
             if (response.data.success) {
                 setPosts(response.data.posts || []);
@@ -24,11 +24,11 @@ export const usePostManager = () => {
         }
     };
 
-    // 投稿の追加
+    
     const addPost = async (content) => {
 
         if (!content || content.trim() === '') {
-            console.error('Content is empty or invalid'); // エラーをログ出力
+            console.error('Content is empty or invalid'); 
             return;
         }
 
@@ -54,12 +54,12 @@ export const usePostManager = () => {
         }
     };
 
-    // コメントを追加
+    
     const addComment = async (postId, commentContent) => {
         try {
             const response = await axios.post(
                 `${API_URL}/api/posts/${postId}/comments`,
-                { content: commentContent.trim() }, // group_id を削除
+                { content: commentContent.trim() }, 
                 { withCredentials: true }
             );
             const newComment = response.data.comment;
@@ -87,7 +87,7 @@ export const usePostManager = () => {
         }
     };
 
-    // ライブラリに投稿を追加
+    
     const addToLibrary = async (postId) => {
         try {
             const confirmAdd = window.confirm('この投稿をライブラリに追加しますか？');
@@ -95,8 +95,8 @@ export const usePostManager = () => {
 
             const response = await axios.post(
                 `${API_URL}/api/posts/${postId}/add-to-library`,
-                {}, // リクエストボディを空にする
-                { withCredentials: true } // クッキーを送信
+                {}, 
+                { withCredentials: true } 
             );
 
             if (response.data.success) {
@@ -111,7 +111,7 @@ export const usePostManager = () => {
         }
     };
 
-    // 共通エラー処理
+    
     const handleError = (error, defaultMessage) => {
         if (error.response) {
             console.error('APIエラー:', error.response);
@@ -122,11 +122,11 @@ export const usePostManager = () => {
         }
     };
 
-    // 初回データ取得
+    
     useEffect(() => {
-        if (!groupId) return; // groupId が未定義なら実行しない
+        if (!groupId) return; 
         fetchData();
-    }, [groupId]); // groupId を監視
+    }, [groupId]); 
 
     return {
         posts,

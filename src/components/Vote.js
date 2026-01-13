@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Vote.css'; // CSSファイルをインポート
+import './Vote.css'; 
 
 const Vote = () => {
     const [users, setUsers] = useState([]);
-    const [groupId, setGroupId] = useState(1); // groupIdを動的に管理
+    const [groupId, setGroupId] = useState(1); 
     const [currentUserId, setCurrentUserId] = useState(null);
     const [currentRepresentative, setCurrentRepresentative] = useState(null);
     const [isVoteActive, setIsVoteActive] = useState(false);
-    const [votes, setVotes] = useState([]); // 全投票データ
-    const [activeVote, setActiveVote] = useState(null); // 現在アクティブな投票
-    const [voteType, setVoteType] = useState('追放'); // Selected vote type
+    const [votes, setVotes] = useState([]); 
+    const [activeVote, setActiveVote] = useState(null); 
+    const [voteType, setVoteType] = useState('追放'); 
     const [voteReason, setVoteReason] = useState('');
-    const [selectedUser, setSelectedUser] = useState(''); // User selected for expulsion
-    const [error, setError] = useState(null); // エラーステートの定義
-    const [comments, setComments] = useState([]); // コメントリスト
-    const [newComment, setNewComment] = useState(''); // 新しいコメント用ステート
-    const [isLoading, setIsLoading] = useState(false); // ローディング状態を管理
+    const [selectedUser, setSelectedUser] = useState(''); 
+    const [error, setError] = useState(null); 
+    const [comments, setComments] = useState([]); 
+    const [newComment, setNewComment] = useState(''); 
+    const [isLoading, setIsLoading] = useState(false); 
     const [isRepresentative, setIsRepresentative] = useState(false);
 
     const API_URL = process.env.REACT_APP_API_URL;
 
     const axiosInstance = axios.create({
-        baseURL: `${API_URL}`, // APIのベースURL
-        withCredentials: true, // トークンを含むクッキーを送信
+        baseURL: `${API_URL}`, 
+        withCredentials: true, 
     });
     
     useEffect(() => {
@@ -31,14 +31,14 @@ const Vote = () => {
             try {
                 setIsLoading(true);
     
-                // 代表者情報と投票状況を取得
+                
                 const response = await axiosInstance.get('/api/votes/representative-overview', {
-                    withCredentials: true, // クッキーを送信
+                    withCredentials: true, 
                 });
     
                 const { users, representative, isRepresentative } = response.data;
     
-                // データを状態に反映
+                
                 setUsers(users);
                 setCurrentRepresentative(representative);
                 setIsRepresentative(isRepresentative);
@@ -57,7 +57,7 @@ const Vote = () => {
     const handleRepresentativeVote = (candidateId) => {
         axiosInstance
             .post('/api/votes/representative', {
-                candidateId, // groupIdは送信しない
+                candidateId, 
             })
             .then(() => {
                 axiosInstance
@@ -180,7 +180,7 @@ const Vote = () => {
         }
     }, [activeVote]);
 
-  // 投票画面
+  
   return (
     <div className="vote-container">
       {isLoading && <div className="loading-message">データを取得中...</div>}
@@ -276,21 +276,21 @@ const Vote = () => {
                                     return;
                                 }
 
-                                // コメントを送信
+                                
                                 axios
                                     .post(
                                         `${API_URL}/api/votes/${activeVote.id}/comments`,
-                                        { comment: newComment }, // userIdは送信しない
-                                        { withCredentials: true } // Cookieを送信
+                                        { comment: newComment }, 
+                                        { withCredentials: true } 
                                     )
                                     .then(() => {
-                                        // コメントをリセット
+                                        
                                         setNewComment('');
-                                        // コメントを再取得
+                                        
                                         axios
                                             .get(
                                                 `${API_URL}/api/votes/${activeVote.id}/comments`,
-                                                { withCredentials: true } // Cookieを送信
+                                                { withCredentials: true } 
                                             )
                                             .then((response) => {
                                                 setComments(response.data);
@@ -316,7 +316,7 @@ const Vote = () => {
           </div>
 
         ) : (
-            // アクティブな投票がない場合、新しい投票を作成
+            
             <div className="vote-create">
                 <select
                     value={voteType}
@@ -331,7 +331,7 @@ const Vote = () => {
                             value={selectedUser}
                             onChange={(e) => {
                                 const value = parseInt(e.target.value, 10);
-                                setSelectedUser(value); // 状態を更新
+                                setSelectedUser(value); 
                             }}
                             className="user-select"
                         >

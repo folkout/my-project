@@ -1,5 +1,5 @@
 import React from 'react';
-import './TermsModal.css'; // モーダル用のCSS
+import './TermsModal.css'; 
 
 const TermsModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;

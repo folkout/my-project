@@ -4,16 +4,16 @@
   font-size: 14px;
 }
 
-/* Vote.css */
+
 .loading-message {
   color: blue;
   font-size: 14px;
   margin: 10px 0;
 }
 
-/* 投票フォーム全体の位置調整 */
+
 .vote-container {
-  margin-top: 20px; /* 上部から適度に下げる */
+  margin-top: 20px; 
   padding: 20px;
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
@@ -22,20 +22,20 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 代表者投票セクション */
+
 .representative-voting {
-  margin-bottom: 50px; /* 投票セクションとの間の余白 */
-  padding: 20px; /* セクション内の余白 */
-  border-radius: 8px; /* 角を丸める */
-  background-color: #fff; /* 背景色 */
+  margin-bottom: 50px; 
+  padding: 20px; 
+  border-radius: 8px; 
+  background-color: #fff; 
 }
 
-/* 投票セクション */
+
 .vote-section {
-  margin-top: 30px; /* 代表者投票との間の余白 */
-  padding: 20px; /* セクション内の余白 */
-  border-radius: 8px; /* 角を丸める */
-  background-color: #fff; /* 背景色 */
+  margin-top: 30px; 
+  padding: 20px; 
+  border-radius: 8px; 
+  background-color: #fff; 
 }
 
 .representative-voting h2 {
@@ -45,7 +45,7 @@
   margin-bottom: 15px;
 }
 
-/* 横スクロール対応 */
+
 .user-scroll-container {
   overflow-x: auto;
   white-space: nowrap;
@@ -58,8 +58,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  overflow-x: auto; /* 横スクロールを有効化 */
-  white-space: nowrap; /* 要素が折り返されないようにする */
+  overflow-x: auto; 
+  white-space: nowrap; 
 }
 
 .user-item {
@@ -72,8 +72,8 @@
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 6px;
-  width: 120px; /* 固定幅 */
-  flex-shrink: 0; /* 幅が縮まないようにする */
+  width: 120px; 
+  flex-shrink: 0; 
 }
 
 .user-name {
@@ -103,7 +103,7 @@
   margin-top: 15px;
 }
 
-/* 投票セクション */
+
 .vote-section h2 {
   font-size: 20px;
   color: #dc3545;
@@ -178,7 +178,7 @@
   background-color: #0056b3;
 }
 
-/* 締切日時表示 */
+
 .vote-deadline {
   font-size: 14px;
   color: #6c757d;
