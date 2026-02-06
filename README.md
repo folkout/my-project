@@ -17,9 +17,9 @@
 - 投稿の作成・閲覧
 - ライブラリ管理
 - 人数制限を前提としたユーザー管理（代表者、追放者投票）
-https://assets.st-note.com/img/1741824954-NGRJKr19U2cBTQx4wCuY6vIq.png?width=2000&height=2000&fit=bounds&quality=85<img width="1200" height="726" alt="image" src="https://github.com/user-attachments/assets/e37fa1ef-f253-4aac-a180-b94515b67c2d" />
-https://assets.st-note.com/img/1741824954-1drECk4PlyJVGqb0szK8TfuI.png?width=2000&height=2000&fit=bounds&quality=85<img width="1200" height="723" alt="image" src="https://github.com/user-attachments/assets/45407e1f-7f60-45d6-bae3-7164764b9956" />
-https://assets.st-note.com/img/1741824954-v2fhY0T45GjcSk6qgoI9wVEP.png?width=2000&height=2000&fit=bounds&quality=85<img width="1200" height="730" alt="image" src="https://github.com/user-attachments/assets/80811a23-1c0f-43f4-b9a4-0ed664ed63fd" />
+<img width="1200" height="726" alt="image" src="https://github.com/user-attachments/assets/e37fa1ef-f253-4aac-a180-b94515b67c2d" />
+<img width="1200" height="723" alt="image" src="https://github.com/user-attachments/assets/45407e1f-7f60-45d6-bae3-7164764b9956" />
+<img width="1200" height="730" alt="image" src="https://github.com/user-attachments/assets/80811a23-1c0f-43f4-b9a4-0ed664ed63fd" />
 
 ## 使用技術
 - フロントエンド: React
